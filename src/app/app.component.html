@@ -8,11 +8,11 @@
 
       <form [formGroup]="myForm" (ngSubmit)="onSubmit()" class="form" >
         <label for="bal" class="label">Pre-Tax Account balance:</label>
-        <input type="text" id="name" formControlName="bal" />
+        <input type="text"  id="name" formControlName="bal" />
         <br>
 
         <label for="return" class="label">回報率:</label>
-        <input type="text" id="return" formControlName="return" />
+        <input type="text"  id="return" formControlName="return" />
         <br>
 
         <label for="age" class="label">Age:</label>
@@ -20,23 +20,27 @@
         <br>
 
         <label for="income" class="label">收入:</label>
-        <input type="text" id="income" formControlName="income" />
+        <input type="text"  id="income" formControlName="income" />
         <br>
 
         <label for="deductible" class="label">扣除額:</label>
-        <input type="text" id="deductible" formControlName="deductible" />
+        <input type="text"   id="deductible" formControlName="deductible" />
         <br>
         
-        <label for="conversion" class="label">提撥金額:</label>
-        <input type="text" id="conversion" formControlName="conversion" />
+        <label for="taxBracket" class="label">稅率:</label>
+        <input type="text"  id="taxBracket" formControlName="taxBracket" />
         <br>
 
-        <label for="taxableIncome" class="label">應稅收入:</label>
+        <label for="taxableIncome" class="label">應稅收入 (suggested):</label>
         <input type="text" id="taxableIncome" formControlName="taxableIncome" />
         <br>
 
+        <label for="conversion" class="label">提撥金額 (suggested):</label>
+        <input type="text" placeholder="Select the tax bracket and the system will provide the conversion amount suggested" id="conversion" formControlName="conversion" />
         <br>
-        <button class="btn" type="submit" [disabled]="myForm.invalid">Submit</button>
+
+        <br>
+        <button class="btn" type="submit" [disabled]="myForm.valid">Submit</button>
       </form>
 
       <!-- form class="example-form2">
