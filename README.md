@@ -6,6 +6,9 @@ See the discussions here:
  # ng
  If you use github codespaces IDE, be sure to install ng first if you need it:
  npm install -g @angular/cli
+
+ # Modules required:
+ npm install --save @angular/material
  
  # RothConversionPlanner
 
