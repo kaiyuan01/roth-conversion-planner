@@ -64,7 +64,7 @@ export class AppComponent implements OnInit  {
   title = 'Roth Conversion Planner';
 
   INIT_DED = '29,200';
-  INIT_BAL = '1042697.98';
+  INIT_BAL = '1042.98';
   INIT_RET = '10%';
   INIT_INC = '16,338';
   INIT_TB = '22%';
@@ -107,10 +107,26 @@ export class AppComponent implements OnInit  {
       this.myForm.get("conversion")?.setValue( conversion );
       
       // populate table data
-      //this.columns = ['a','b'];
-      //this.data = ['1','2'];      
+      this.dataSource = [];
+      let row =
+        {year: 2024, age: 56, bal: 1042697, income: 23000, ded: 0,
+          conversion: 0, taxableIncome: 0,
+          rmdFactor: 0, rmdAmt: 0,
+          taxBracket1: 0, taxBracket2: 0, tax: 0
+         };   
+      this.dataSource.push(row);
+
+      row =
+        {year: 2025, age: 57, bal: 1042697*1.10, income: 23000, ded: 0,
+          conversion: 9999, taxableIncome: 5643,
+          rmdFactor: 0, rmdAmt: 9980,
+          taxBracket1: 0, taxBracket2: 0, tax: 999876
+         };   
+      this.dataSource.push(row);
+
     }
 
+    // if the data in the table got changed
     if(1  && this.myForm && this.myForm.get('taxableIncome2')?.dirty ) {
       console.log( 'taxableIncome2: ', this.myForm.get('taxableIncome2')?.value );
       //this.myForm.get("taxableIncome")?.setValue( '999' );
