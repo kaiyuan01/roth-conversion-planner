@@ -44,6 +44,10 @@
       </form>
 
       <!-- tabular data will be displayer here -->
+      <form [formGroup]="myForm" (ngSubmit)="onSubmit()" class="form" >
+        <button class="btn" type="submit" [disabled]="myForm.valid">Re-calculate</button>
+        <br>
+
       <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
 
         <!--- Note that these columns can be defined in any order.
@@ -85,7 +89,9 @@
 
         <ng-container matColumnDef="taxableIncome">
           <th mat-header-cell *matHeaderCellDef> taxableIncome </th>
-          <td mat-cell *matCellDef="let element"> {{element.taxableIncome}} </td>
+          <td mat-cell *matCellDef="let element">
+            <input type="text" value="{{element.taxableIncome}}" placeholder="{{element.taxableIncome}}" id="taxableIncome" formControlName="taxableIncome2" />
+          </td>
         </ng-container>
 
         <ng-container matColumnDef="rmdFactor">
@@ -97,21 +103,22 @@
           <td mat-cell *matCellDef="let element"> {{element.rmdAmt}} </td>
         </ng-container>
         <ng-container matColumnDef="taxBracket1">
-          <th mat-header-cell *matHeaderCellDef> taxBracket1 </th>
+          <th mat-header-cell *matHeaderCellDef> taxBracket1 10%/$23200/$2320 </th>
           <td mat-cell *matCellDef="let element"> {{element.taxBracket1}} </td>
         </ng-container>
         <ng-container matColumnDef="taxBracket2">
-          <th mat-header-cell *matHeaderCellDef> taxBracket2 </th>
+          <th mat-header-cell *matHeaderCellDef> taxBracket2 12%/$94300/$8532 </th>
           <td mat-cell *matCellDef="let element"> {{element.taxBracket2}} </td>
         </ng-container>
-        <ng-container matColumnDef="總稅額">
+        <ng-container matColumnDef="tax">
           <th mat-header-cell *matHeaderCellDef> 總稅額tax </th>
-          <td mat-cell *matCellDef="let element"> {{element.總稅額}} </td>
+          <td mat-cell *matCellDef="let element"> {{element.tax}} </td>
         </ng-container>
 
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
       </table>
+    </form>
 
       <!-- form class="example-form2">
         

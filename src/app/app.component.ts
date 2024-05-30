@@ -22,7 +22,7 @@ export interface ColData {
   rmdAmt: number;
   taxBracket1: number;
   taxBracket2: number;
-  總稅額: number;
+  tax: number;
 }
 
 let ELEMENT_DATA: ColData[] = [
@@ -34,7 +34,7 @@ let ELEMENT_DATA: ColData[] = [
     rmdAmt: 0,
     taxBracket1: 0,
     taxBracket2: 0,
-    總稅額: 0,
+    tax: 0,
    },
 ];
 
@@ -57,7 +57,7 @@ export class AppComponent implements OnInit  {
     'rmdFactor',
     'rmdAmt',
     'taxBracket1',
-    'taxBracket2','總稅額'];
+    'taxBracket2','tax'];
 
   dataSource = ELEMENT_DATA;
   
@@ -86,6 +86,7 @@ export class AppComponent implements OnInit  {
       deductible: new FormControl(this.INIT_DED, [Validators.required]),
       conversion: new FormControl('', Validators.required),
       taxableIncome: new FormControl('', Validators.required),
+      taxableIncome2: new FormControl('', Validators.required),
       taxBracket: new FormControl(this.INIT_TB, Validators.required),
     });
   }
@@ -108,6 +109,13 @@ export class AppComponent implements OnInit  {
       // populate table data
       //this.columns = ['a','b'];
       //this.data = ['1','2'];      
+    }
+
+    if(1  && this.myForm && this.myForm.get('taxableIncome2')?.dirty ) {
+      console.log( 'taxableIncome2: ', this.myForm.get('taxableIncome2')?.value );
+      //this.myForm.get("taxableIncome")?.setValue( '999' );
+
+      this.myForm.get("taxableIncome")?.setValue( this.myForm.get('taxableIncome2')?.value );
     }
   }
 
