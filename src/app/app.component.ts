@@ -15,11 +15,27 @@ export interface ColData {
   age: number;
   bal: number;
   income: number;
+  ded: number;
+  conversion: number;
+  taxableIncome: number;
+  rmdFactor: number;
+  rmdAmt: number;
+  taxBracket1: number;
+  taxBracket2: number;
+  總稅額: number;
 }
 
 let ELEMENT_DATA: ColData[] = [
   
-  {year: 2024, age: 78, bal: 20.1797, income: 23000},
+  {year: 2024, age: 78, bal: 20.1797, income: 23000, ded: 0,
+    conversion: 0,
+    taxableIncome: 0,
+    rmdFactor: 0,
+    rmdAmt: 0,
+    taxBracket1: 0,
+    taxBracket2: 0,
+    總稅額: 0,
+   },
 ];
 
 @Component({
@@ -35,7 +51,14 @@ export class AppComponent implements OnInit  {
  // @Input() columns: [] = []; //TableHeader
  // @Input() data: [] | null = [];
 
-  displayedColumns: string[] = ['year', 'age', 'bal', 'income'];
+  displayedColumns: string[] = ['year', 'age', 'bal', 'income', 'ded',
+    'conversion',
+    'taxableIncome',
+    'rmdFactor',
+    'rmdAmt',
+    'taxBracket1',
+    'taxBracket2','總稅額'];
+
   dataSource = ELEMENT_DATA;
   
   title = 'Roth Conversion Planner';
