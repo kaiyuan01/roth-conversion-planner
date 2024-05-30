@@ -1,19 +1,43 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import {MatInputModule} from '@angular/material/input';
-import {MatFormFieldModule} from '@angular/material/form-field';
-import {FormsModule} from '@angular/forms';
+
+import { MatInputModule} from '@angular/material/input';
+import { MatFormFieldModule} from '@angular/material/form-field';
+import { FormsModule} from '@angular/forms';
+
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
+
+import {MatTableModule} from '@angular/material/table';
+
+export interface ColData {
+  year: number;
+  age: number;
+  bal: number;
+  income: number;
+}
+
+let ELEMENT_DATA: ColData[] = [
+  
+  {year: 2024, age: 78, bal: 20.1797, income: 23000},
+];
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, FormsModule, MatFormFieldModule, MatInputModule, ReactiveFormsModule],
+  imports: [RouterOutlet, FormsModule, MatFormFieldModule, MatInputModule, ReactiveFormsModule, MatTableModule],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
+
+
 export class AppComponent implements OnInit  {
+ // @Input() columns: [] = []; //TableHeader
+ // @Input() data: [] | null = [];
+
+  displayedColumns: string[] = ['year', 'age', 'bal', 'income'];
+  dataSource = ELEMENT_DATA;
+  
   title = 'Roth Conversion Planner';
 
   INIT_DED = '29,200';
@@ -41,19 +65,28 @@ export class AppComponent implements OnInit  {
       taxableIncome: new FormControl('', Validators.required),
       taxBracket: new FormControl(this.INIT_TB, Validators.required),
     });
-
-    
-
   }
 
   onSubmit() {
     console.log(this.myForm.value);
-    // You can add code here to submit the form data to a server or do something else with it
-
     if(this.myForm && this.myForm.get('taxBracket') && this.myForm.get('taxBracket')?.value == "22%") {
       this.myForm.get("taxableIncome")?.setValue( '201050' );
-      this.myForm.get("conversion")?.setValue( eval( this.myForm.get("taxableIncome")?.value - this.myForm.get("income")?.value + this.myForm.get("deductible")?.value ) );
+
+      console.log( 'taxableIncome: ', this.myForm.get('taxableIncome')?.value );
+      console.log( 'income: ', parseInt(this.myForm.get("income")?.value.replace(/,/g, ''), 10) );
+
+      let conversion = this.myForm.get('taxableIncome')?.value 
+        - parseInt(this.myForm.get("income")?.value.replace(/,/g, ''), 10)  
+        + parseInt(this.myForm.get("deductible")?.value.replace(/,/g, ''), 10);
+      console.log("conversion: ", conversion);
+
+      this.myForm.get("conversion")?.setValue( conversion );
+      
+      // populate table data
+      //this.columns = ['a','b'];
+      //this.data = ['1','2'];      
     }
   }
+
 
 }

@@ -43,6 +43,40 @@
         <button class="btn" type="submit" [disabled]="myForm.valid">Submit</button>
       </form>
 
+      <!-- tabular data will be displayer here -->
+      <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+        <!--- Note that these columns can be defined in any order.
+              The actual rendered columns are set as a property on the row definition" -->
+      
+        <!-- Position Column -->
+        <ng-container matColumnDef="year">
+          <th mat-header-cell *matHeaderCellDef> Year </th>
+          <td mat-cell *matCellDef="let element"> {{element.year}} </td>
+        </ng-container>
+      
+        <!-- Name Column -->
+        <ng-container matColumnDef="age">
+          <th mat-header-cell *matHeaderCellDef> Name </th>
+          <td mat-cell *matCellDef="let element"> {{element.age}} </td>
+        </ng-container>
+      
+        <!-- Weight Column -->
+        <ng-container matColumnDef="bal">
+          <th mat-header-cell *matHeaderCellDef> Account balance </th>
+          <td mat-cell *matCellDef="let element"> {{element.bal}} </td>
+        </ng-container>
+      
+        <!-- Symbol Column -->
+        <ng-container matColumnDef="income">
+          <th mat-header-cell *matHeaderCellDef> 收入 </th>
+          <td mat-cell *matCellDef="let element"> {{element.income}} </td>
+        </ng-container>
+      
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+
       <!-- form class="example-form2">
         
         <mat-form-field appearance="outline">
