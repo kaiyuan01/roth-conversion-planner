@@ -19,6 +19,10 @@
         <input type="text" id="age" formControlName="age" />
         <br>
 
+        <label for="age2convert" class="label">Age Starting to Convert:</label>
+        <input type="text" id="age2convert" formControlName="age2convert" />
+        <br>
+
         <label for="income" class="label">收入:</label>
         <input type="text"  id="income" formControlName="income" />
         <br>
@@ -68,7 +72,7 @@
         <!-- Weight Column -->
         <ng-container matColumnDef="bal">
           <th mat-header-cell *matHeaderCellDef> Account balance </th>
-          <td mat-cell *matCellDef="let element"> {{element.bal}} </td>
+          <td mat-cell *matCellDef="let element"> {{ element.bal.toLocaleString('en-US', { style: 'currency', currency: 'USD',maximumFractionDigits: 2 }) }} </td>
         </ng-container>
       
         <!-- Income Column -->
@@ -83,7 +87,7 @@
         </ng-container>
       
         <ng-container matColumnDef="conversion">
-          <th mat-header-cell *matHeaderCellDef> conversion </th>
+          <th mat-header-cell *matHeaderCellDef> Amt to Convert </th>
           <td mat-cell *matCellDef="let element"> {{element.conversion}} </td>
         </ng-container>
 
@@ -110,15 +114,58 @@
           <th mat-header-cell *matHeaderCellDef> taxBracket2 12%/$94300/$8532 </th>
           <td mat-cell *matCellDef="let element"> {{element.taxBracket2}} </td>
         </ng-container>
+        <ng-container matColumnDef="taxBracket3">
+          <th mat-header-cell *matHeaderCellDef> taxBracket3 22.0%/$201050/$23485 </th>
+          <td mat-cell *matCellDef="let element"> {{element.taxBracket3}} </td>
+        </ng-container>
         <ng-container matColumnDef="tax">
           <th mat-header-cell *matHeaderCellDef> 總稅額tax </th>
           <td mat-cell *matCellDef="let element"> {{element.tax}} </td>
         </ng-container>
-
+        <ng-container matColumnDef="balAftTax">
+          <th mat-header-cell *matHeaderCellDef> 稅後淨額 </th>
+          <td mat-cell *matCellDef="let element"> {{ element.balAftTax.toLocaleString('en-US', { style: 'currency', currency: 'USD',maximumFractionDigits: 2 }) }} </td>
+        </ng-container>
+        
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
       </table>
     </form>
+
+    <h1>Summary</h1>
+    <details>
+      <summary>Scenario Comparisons</summary>
+      <p>
+        <mat-table [dataSource]="summary" class="mat-elevation-z8">
+          
+          <ng-container matColumnDef="info">
+            <mat-header-cell *matHeaderCellDef> Scenario details </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.info}} </mat-cell>
+          </ng-container>
+        
+          <ng-container matColumnDef="at80">
+            <mat-header-cell *matHeaderCellDef> at80 </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.at80}} </mat-cell>
+          </ng-container>
+        
+          <ng-container matColumnDef="at100">
+            <mat-header-cell *matHeaderCellDef> at100 </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.at100}} </mat-cell>
+          </ng-container>
+        
+          <ng-container matColumnDef="at120">
+            <mat-header-cell *matHeaderCellDef> at120 </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.at120}} </mat-cell>
+          </ng-container>
+        
+          <mat-header-row *matHeaderRowDef="displayedColumnsSummary"></mat-header-row>
+          <mat-row *matRowDef="let row; columns: displayedColumnsSummary;"></mat-row>
+        </mat-table>
+
+      </p>
+    </details>
+
+
 
       <!-- form class="example-form2">
         
