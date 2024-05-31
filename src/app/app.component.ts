@@ -244,10 +244,20 @@ export class AppComponent implements OnInit  {
             row['bal'] = bal * (1 + ret);
          }*/
 
-         console.log('In RMD_MAP: ');
-         RMD_MAP.forEach((key, value) => {
-          console.log(key, value);
-         });
+         //console.log('In RMD_MAP: ', RMD_MAP);
+         // forEach method receives a callback as first parameter, and this callback could receive three parameters: currentValue, index, array, in this order.
+         // https://developer.mozilla.org/pt-BR/docs/Web/JavaScript/Reference/Global_Objects/Array/forEach
+         RMD_MAP.forEach((value, key) => {
+          //console.log('k:',key, ', v:', value);
+         }); 
+
+         if(age >= 76) {
+          const rmdFactor = RMD_MAP.get(age);
+          const rmdAmt = row['bal']/rmdFactor;
+          console.log('rmdAmt: ', rmdAmt);
+          row['rmdFactor'] = rmdFactor;
+          row['rmdAmt'] = rmdAmt;
+         }
 
          this.dataSource.push(row);
          taxTot += row['tax'];
