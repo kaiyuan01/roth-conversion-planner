@@ -217,7 +217,7 @@ export class AppComponent implements OnInit  {
         if(age >= 76) {
           rmdFactor = RMD_MAP.get(age);
           rmdAmt = bal_final/rmdFactor;
-          console.log('rmdAmt: ', rmdAmt);
+          //console.log('rmdAmt: ', rmdAmt);
           //row['rmdFactor'] = rmdFactor;
           //row['rmdAmt'] = rmdAmt;
 
