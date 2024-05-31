@@ -210,10 +210,26 @@ export class AppComponent implements OnInit  {
         let balAftTax = row['balAftTax'];
 
         let bal2 =  bal * (1 + ret) - conversion2;
+
+        let rmdFactor = 0, rmdAmt = 0;
+
+        let bal_final = bal2 >=0 ? bal2 : 0;
+        if(age >= 76) {
+          rmdFactor = RMD_MAP.get(age);
+          rmdAmt = bal_final/rmdFactor;
+          console.log('rmdAmt: ', rmdAmt);
+          //row['rmdFactor'] = rmdFactor;
+          //row['rmdAmt'] = rmdAmt;
+
+          if(rmdAmt > conversion2) {
+            conversion2 = rmdAmt;
+          }
+         }
+
         row = 
-        {year: year, age: age, bal: bal2 >=0 ? bal2 : 0, income: income, ded: ded,
+        {year: year, age: age, bal: bal_final, income: income, ded: ded,
           conversion: conversion2, taxableIncome: taxableIncome,
-          rmdFactor: 0, rmdAmt: 0,
+          rmdFactor: rmdFactor, rmdAmt: rmdAmt,
           taxBracket1: tax1, taxBracket2: tax2, taxBracket3: tax3, tax: tax1+tax2+tax3,
           balAftTax: balAftTax*(1+ret) + conversion2 - tax,
          };   
@@ -251,13 +267,7 @@ export class AppComponent implements OnInit  {
           //console.log('k:',key, ', v:', value);
          }); 
 
-         if(age >= 76) {
-          const rmdFactor = RMD_MAP.get(age);
-          const rmdAmt = row['bal']/rmdFactor;
-          console.log('rmdAmt: ', rmdAmt);
-          row['rmdFactor'] = rmdFactor;
-          row['rmdAmt'] = rmdAmt;
-         }
+         
 
          this.dataSource.push(row);
          taxTot += row['tax'];
