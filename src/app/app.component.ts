@@ -10,6 +10,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 
 import {MatTableModule} from '@angular/material/table';
 import { TableDataService } from './services/table-data.service';
+import { RMD_MAP } from './app.constants';
 
 export interface ColData {
   year: number;
@@ -30,7 +31,7 @@ export interface ColData {
 
 export interface ColDataSummary {
   info: string;
-  at80: string;
+  at85: string;
   at100: string;
   at120: string;
 }
@@ -50,7 +51,7 @@ let ELEMENT_DATA: ColData[] = [
 ];
 
 let ELEMENT_DATA_SUMMARY: ColDataSummary[] = [
-  {info: '', at80: '', at100: '', at120: '',}];
+  {info: '', at85: '', at100: '', at120: '',}];
    
 @Component({
   selector: 'app-root',
@@ -67,7 +68,7 @@ export class AppComponent implements OnInit  {
  // @Input() data: [] | null = [];
 
   dataSummary: ColDataSummary[] = ELEMENT_DATA_SUMMARY;
-  newSummary: ColDataSummary = {info: '', at80: '', at100: '', at120: '',};
+  newSummary: ColDataSummary = {info: '', at85: '', at100: '', at120: '',};
   constructor(private myService: TableDataService) {
     this.dataSummary = myService.getSummary();
   }
@@ -83,7 +84,7 @@ export class AppComponent implements OnInit  {
     'rmdAmt',
     'taxBracket1', 'taxBracket2','taxBracket3','tax', 'balAftTax'];
 
-  displayedColumnsSummary: string[] = ['info', 'at80', 'at100', 'at120',];
+  displayedColumnsSummary: string[] = ['info', 'at85', 'at100', 'at120',];
   dataSource = ELEMENT_DATA;
   summary = ELEMENT_DATA_SUMMARY; //this.myService.getSummary(); //this.dataSummary; //ELEMENT_DATA_SUMMARY;
   
@@ -169,7 +170,7 @@ export class AppComponent implements OnInit  {
       let rowSummary = 
       {
         info: 'Starting with $' + bal +' at ' + age + '; start converting to Roth at age ' + age2convert,
-        at80: '0',
+        at85: '0',
         at100: '0',
         at120: '0',
       };   
@@ -243,11 +244,16 @@ export class AppComponent implements OnInit  {
             row['bal'] = bal * (1 + ret);
          }*/
 
+         console.log('In RMD_MAP: ');
+         RMD_MAP.forEach((key, value) => {
+          console.log(key, value);
+         });
+
          this.dataSource.push(row);
          taxTot += row['tax'];
 
-         if(age == 80) {
-            rowSummary['at80'] = 'balAftTax: ' + (row['balAftTax'].toLocaleString('en-US', { style: 'currency', currency: 'USD',maximumFractionDigits: 2 }));
+         if(age == 85) {
+            rowSummary['at85'] = 'balAftTax: ' + (row['balAftTax'].toLocaleString('en-US', { style: 'currency', currency: 'USD',maximumFractionDigits: 2 }));
          }
          else if(age == 100) {
             rowSummary['at100'] = 'balAftTax: ' + row['balAftTax'].toLocaleString('en-US', { style: 'currency', currency: 'USD',maximumFractionDigits: 2 }).toString();
