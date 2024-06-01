@@ -36,22 +36,22 @@ export default class Utils {
                   if(taxableIncome >= TAX_BRACKET_5_INCOME_MAX) {
                     tax_final += (TAX_BRACKET_5_INCOME_MAX-TAX_BRACKET_4_INCOME_MAX)*0.32;
                     if(taxableIncome >= TAX_BRACKET_6_INCOME_MAX) {
-                      tax_final += (TAX_BRACKET_6_INCOME_MAX-TAX_BRACKET_3_INCOME_MAX)*0.35;
+                      tax_final += (TAX_BRACKET_6_INCOME_MAX-TAX_BRACKET_5_INCOME_MAX)*0.35;
                       
                     }
                     else { //6
-                      let tax = (taxableIncome - TAX_BRACKET_5_INCOME_MAX - TAX_BRACKET_4_INCOME_MAX - TAX_BRACKET_3_INCOME_MAX - TAX_BRACKET_2_INCOME_MAX - TAX_BRACKET_1_INCOME_MAX) * 0.35;
+                      let tax = (taxableIncome - TAX_BRACKET_5_INCOME_MAX ) * 0.35;
                       return  (tax < 0) ? tax_final : tax_final + tax; 
                     }
                   }
                   else { //5
-                    let tax = (taxableIncome - TAX_BRACKET_4_INCOME_MAX - TAX_BRACKET_3_INCOME_MAX - TAX_BRACKET_2_INCOME_MAX - TAX_BRACKET_1_INCOME_MAX) * 0.32;
+                    let tax = (taxableIncome - TAX_BRACKET_4_INCOME_MAX ) * 0.32;
                     return  (tax < 0) ? tax_final : tax_final + tax; 
                   }
 
                 }
                 else { //4
-                  let tax = (taxableIncome - TAX_BRACKET_3_INCOME_MAX - TAX_BRACKET_2_INCOME_MAX - TAX_BRACKET_1_INCOME_MAX) * 0.24;
+                  let tax = (taxableIncome - TAX_BRACKET_3_INCOME_MAX ) * 0.24;
                   console.log("tax is: ", tax);
                   tax_final = (tax < 0) ? tax_final : tax_final + tax;                   
                   return tax_final;
@@ -59,7 +59,7 @@ export default class Utils {
              
               }
               else { //3
-                let tax = (taxableIncome - TAX_BRACKET_2_INCOME_MAX - TAX_BRACKET_1_INCOME_MAX) * 0.22;
+                let tax = (taxableIncome - TAX_BRACKET_2_INCOME_MAX ) * 0.22;
                 console.log("tax_final, stopped at <22.0% :", tax_final, ", taxableIncome: ", taxableIncome, ", TAX_BRACKET_3_INCOME_MAX: ", TAX_BRACKET_3_INCOME_MAX);
                 return  (tax < 0) ? tax_final : tax_final + tax; 
               }
