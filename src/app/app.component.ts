@@ -11,6 +11,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import {MatTableModule} from '@angular/material/table';
 import { TableDataService } from './services/table-data.service';
 import { RMD_MAP } from './app.constants';
+import Utils from './app.utils';
 
 export interface ColData {
   year: number;
@@ -201,7 +202,7 @@ export class AppComponent implements OnInit  {
 
         bal = row['bal'];
         //console.log('ret=', ret, ', bal=',bal);
-        taxableIncome = row['taxableIncome'];
+        taxableIncome = row['taxableIncome']; // taxable income last year
         income = row['income'];
         ded = row['ded'];
         conversion = row['conversion'];
@@ -214,17 +215,21 @@ export class AppComponent implements OnInit  {
         let rmdFactor = 0, rmdAmt = 0;
 
         let bal_final = bal2 >=0 ? bal2 : 0;
-        if(age >= 76) {
+        if(age >= 76 && bal_final > 0 && bal-conversion > 0) {
           rmdFactor = RMD_MAP.get(age);
           rmdAmt = bal_final/rmdFactor;
           //console.log('rmdAmt: ', rmdAmt);
           //row['rmdFactor'] = rmdFactor;
           //row['rmdAmt'] = rmdAmt;
 
-          if(rmdAmt > conversion2) {
+          if(rmdAmt > conversion2 ) {
             conversion2 = rmdAmt;
           }
          }
+
+        if ( conversion-bal == 0 ) { // last time: last conversion
+          bal_final = 0;
+        }
 
         row = 
         {year: year, age: age, bal: bal_final, income: income, ded: ded,
@@ -233,6 +238,16 @@ export class AppComponent implements OnInit  {
           taxBracket1: tax1, taxBracket2: tax2, taxBracket3: tax3, tax: tax1+tax2+tax3,
           balAftTax: balAftTax*(1+ret) + conversion2 - tax,
          };   
+
+         if(age >= age2convert && row['conversion'] > row['bal']) {
+          row['conversion'] = row['bal']; // last conversion
+          row['taxableIncome'] = row['conversion'] + row['income'] - row['ded'] ;
+         }
+         //recalc tax based on taxable income; 35% max for now
+         let tax_final = Utils.calcTax(row['taxableIncome']);
+          if ( tax_final !== undefined) {
+            row['tax'] = tax_final; // 35% max for now, only show 3 tax brackets in ui
+          }
 
          if(bal2 <= 0 || bal ==0) {
             row['taxBracket1'] = 0;
@@ -267,7 +282,12 @@ export class AppComponent implements OnInit  {
           //console.log('k:',key, ', v:', value);
          }); 
 
-         
+         if(row['conversion'] == 0 && row['bal'] == 0) {
+          row['taxableIncome'] = 0;
+          row['taxBracket1'] = 0;
+          row['taxBracket2'] = 0;
+          row['taxBracket3'] = 0;
+         }
 
          this.dataSource.push(row);
          taxTot += row['tax'];
