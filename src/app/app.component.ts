@@ -12,6 +12,8 @@ import {MatTableModule} from '@angular/material/table';
 import { TableDataService } from './services/table-data.service';
 import { RMD_MAP } from './app.constants';
 import Utils from './app.utils';
+import { MyCurrencyPipe } from './pipes/currency.pipe'
+import { formatDate, CurrencyPipe } from '@angular/common';
 
 export interface ColData {
   year: number;
