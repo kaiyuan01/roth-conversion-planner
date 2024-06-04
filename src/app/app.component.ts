@@ -14,7 +14,7 @@ import { RMD_MAP } from './app.constants';
 import Utils from './app.utils';
 import { MyCurrencyPipe } from './pipes/currency.pipe'
 import { formatDate, CurrencyPipe } from '@angular/common';
-import { environment } from './environments/environment';
+import { environment } from './../environments/environment';
 
 export interface ColData {
   year: number;
