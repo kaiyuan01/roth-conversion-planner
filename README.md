@@ -9,6 +9,15 @@ See the discussions here:
 
  # Modules required:
  npm install --save @angular/material
+
+ # Build releases
+ E.g.:
+    npm version 1.0.1
+
+    npm run build
+
+    npm run build --prod
+    ng build --configuration production
  
  # RothConversionPlanner
 
