@@ -293,6 +293,11 @@ export class AppComponent implements OnInit  {
           row['taxBracket3'] = 0;
          }
 
+         if(row['rmdFactor'] > 0 && row['conversion'] >= row['rmdAmt'] ) {
+          if(row['conversion'] > row['rmdAmt'] ) row['conversion'] = row['rmdAmt'];
+          row['taxableIncome'] = row['conversion'] + row['income'] - row['ded'];
+         } 
+
          this.dataSource.push(row);
          taxTot += row['tax'];
 
