@@ -120,7 +120,7 @@
         </ng-container>
         <ng-container matColumnDef="tax">
           <th mat-header-cell *matHeaderCellDef> 總稅額tax </th>
-          <td mat-cell *matCellDef="let element"> {{element.tax}} </td>
+          <td mat-cell *matCellDef="let element"> {{ element.tax.toLocaleString('en-US', { style: 'currency', currency: 'USD',maximumFractionDigits: 2 }) }} </td>
         </ng-container>
         <ng-container matColumnDef="balAftTax">
           <th mat-header-cell *matHeaderCellDef> 稅後淨額 </th>

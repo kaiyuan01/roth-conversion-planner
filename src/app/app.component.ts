@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, HostBinding } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 
 import { MatInputModule} from '@angular/material/input';
@@ -14,6 +14,7 @@ import { RMD_MAP } from './app.constants';
 import Utils from './app.utils';
 import { MyCurrencyPipe } from './pipes/currency.pipe'
 import { formatDate, CurrencyPipe } from '@angular/common';
+import { environment } from './environments/environment';
 
 export interface ColData {
   year: number;
@@ -69,6 +70,7 @@ let ELEMENT_DATA_SUMMARY: ColDataSummary[] = [
 export class AppComponent implements OnInit  {
  // @Input() columns: [] = []; //TableHeader
  // @Input() data: [] | null = [];
+ @HostBinding('attr.app-version') appVersionAttr = environment.appVersion;
 
   dataSummary: ColDataSummary[] = ELEMENT_DATA_SUMMARY;
   newSummary: ColDataSummary = {info: '', at85: '', at100: '', at120: '',};
