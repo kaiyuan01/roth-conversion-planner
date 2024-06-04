@@ -16,7 +16,9 @@ See the discussions here:
 
     npm run build
 
+    Known issue: they all generated 1.0.2--dev in index.html, just as dev build:
     npm run build --prod
+    npm run build --production
     ng build --configuration production
  
  # RothConversionPlanner
