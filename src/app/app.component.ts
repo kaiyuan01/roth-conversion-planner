@@ -126,8 +126,9 @@ export class AppComponent implements OnInit  {
 
   onSubmit() {
     console.log(this.myForm.value);
-    if(this.myForm && this.myForm.get('taxBracket') && this.myForm.get('taxBracket')?.value == "22%") {
-      this.myForm.get("taxableIncome")?.setValue( '201050' );
+    if(this.myForm && this.myForm.get('taxBracket') && this.myForm.get('taxBracket')?.value >= "22%") {
+      if(this.myForm.get('taxBracket')?.value == "22%") this.myForm.get("taxableIncome")?.setValue( '201050' );
+      else if (this.myForm.get('taxBracket')?.value == "24%") this.myForm.get("taxableIncome")?.setValue( '383900' );
 
       console.log( 'taxableIncome: ', this.myForm.get('taxableIncome')?.value );
       console.log( 'income: ', parseInt(this.myForm.get("income")?.value.replace(/,/g, ''), 10) );
