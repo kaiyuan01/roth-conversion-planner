@@ -1,7 +1,12 @@
+[![Deploy static content to Pages](https://github.com/kaiyuan01/roth-conversion-planner/actions/workflows/static.yml/badge.svg)](https://github.com/kaiyuan01/roth-conversion-planner/actions/workflows/static.yml)
+
 # Roth Conversion
 See the discussions here:
  https://www.youtube.com/watch?v=EbZfRRSX8Wo&amp;list=PLiskER8xug1eo49yiMsDm8NFY1PGFvMbk
 
+ https://www.youtube.com/watch?v=EbZfRRSX8Wo&list=PLiskER8xug1eo49yiMsDm8NFY1PGFvMbk
+ https://www.youtube.com/watch?v=KEJ1JhVZ0V4&list=PLiskER8xug1cvgAapbJMWldAlAY8ygnZL
+ 
 
  # ng
  If you use github codespaces IDE, be sure to install ng first if you need it:
