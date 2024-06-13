@@ -18,6 +18,7 @@ See the discussions here:
  # Build releases
  E.g.:
     npm version 1.0.1
+    npm run build -- --base-href=/roth-conversion-planner/browser/ --configuration production
     ng build --configuration production --base-href /roth-conversion-planner/browser/
 
     npm run build
