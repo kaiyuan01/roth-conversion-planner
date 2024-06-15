@@ -15,6 +15,8 @@ import Utils from './app.utils';
 import { MyCurrencyPipe } from './pipes/currency.pipe'
 import { formatDate, CurrencyPipe } from '@angular/common';
 import { environment } from './../environments/environment';
+//import { BrowserModule } from '@angular/platform-browser';
+import { CommonModule} from '@angular/common';
 
 export interface ColData {
   year: number;
@@ -41,7 +43,7 @@ export interface ColDataSummary {
 }
 
 let ELEMENT_DATA: ColData[] = [
-  {year: 2024, age: 7, bal: 20.1797, income: 23000, ded: 0,
+  {year: 2024, age: 50, bal: 900000, income: 23000, ded: 29200,
     conversion: 0,
     taxableIncome: 0,
     rmdFactor: 0,
@@ -60,7 +62,9 @@ let ELEMENT_DATA_SUMMARY: ColDataSummary[] = [
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, FormsModule, MatFormFieldModule, MatInputModule, ReactiveFormsModule, MatTableModule],
+  imports: [RouterOutlet, FormsModule, MatFormFieldModule, MatInputModule, ReactiveFormsModule, MatTableModule, 
+    //BrowserModule, 
+    CommonModule ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
   providers:[TableDataService]
@@ -71,6 +75,9 @@ export class AppComponent implements OnInit  {
  // @Input() columns: [] = []; //TableHeader
  // @Input() data: [] | null = [];
  @HostBinding('attr.app-version') appVersionAttr = environment.appVersion;
+
+  // status 
+  filingStatuses: any = [ 'Single', 'Married Filing Jointly', ];
 
   dataSummary: ColDataSummary[] = ELEMENT_DATA_SUMMARY;
   newSummary: ColDataSummary = {info: '', at85: '', at100: '', at120: '',};
@@ -112,6 +119,7 @@ export class AppComponent implements OnInit  {
     this.myForm = new FormGroup({
       bal: new FormControl(this.INIT_BAL, Validators.required),
       return: new FormControl(this.INIT_RET, [Validators.required]),
+      statusSelected: new FormControl('Married Filing Jointly', [Validators.required]),
       age: new FormControl('', Validators.required),
       age2convert: new FormControl('62', Validators.required),
       
@@ -124,11 +132,30 @@ export class AppComponent implements OnInit  {
     });
   }
 
+  changeFilingStatus(e: any) {
+    console.log('status selected: ', e.value);
+    this.myForm.setValue(e.target.value, {
+      onlySelf: true
+    })
+  }
+
+  // Getter method to access formcontrols
+  get filingStatus() {
+    return this.myForm.get('statusSelected');
+  }
+
   onSubmit() {
     console.log(this.myForm.value);
     if(this.myForm && this.myForm.get('taxBracket') && this.myForm.get('taxBracket')?.value >= "22%") {
       if(this.myForm.get('taxBracket')?.value == "22%") this.myForm.get("taxableIncome")?.setValue( '201050' );
       else if (this.myForm.get('taxBracket')?.value == "24%") this.myForm.get("taxableIncome")?.setValue( '383900' );
+
+      if(this.myForm.get('statusSelected')?.value == "Single") { // default MFJ
+        console.log( 'Processing status: Single ...' );
+        if(this.myForm.get('taxBracket')?.value == "22%") this.myForm.get("taxableIncome")?.setValue( '2500' );
+        else if (this.myForm.get('taxBracket')?.value == "24%") this.myForm.get("taxableIncome")?.setValue( '3500' );
+  
+      }
 
       console.log( 'taxableIncome: ', this.myForm.get('taxableIncome')?.value );
       console.log( 'income: ', parseInt(this.myForm.get("income")?.value.replace(/,/g, ''), 10) );

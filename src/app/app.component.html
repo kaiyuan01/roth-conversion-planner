@@ -6,6 +6,7 @@
 
       <hr> 
 
+      <!-- angular reactive form -->
       <form [formGroup]="myForm" (ngSubmit)="onSubmit()" class="form" >
         <label for="bal" class="label">Pre-Tax Account Balance:</label>
         <input type="text"  id="name" formControlName="bal" />
@@ -21,6 +22,15 @@
 
         <label for="age2convert" class="label">Age Starting to Convert:</label>
         <input type="text" id="age2convert" formControlName="age2convert" />
+        <br>
+
+        <br>
+        <label for="statusSelected" class="label">U.S. Tax Filing Status:</label>
+        <select class="custom-select" (change)="changeFilingStatus($event)" formControlName="statusSelected">
+          <option value="">Pick tax filing status</option>
+          <option *ngFor="let status of filingStatuses" [ngValue]="status">{{status}}</option>
+        </select>
+        <br>
         <br>
 
         <label for="income" class="label">收入:</label>
