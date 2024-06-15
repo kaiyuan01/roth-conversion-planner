@@ -151,10 +151,9 @@ export class AppComponent implements OnInit  {
       else if (this.myForm.get('taxBracket')?.value == "24%") this.myForm.get("taxableIncome")?.setValue( '383900' );
 
       if(this.myForm.get('statusSelected')?.value == "Single") { // default MFJ
-        console.log( 'Processing status: Single ...' );
-        if(this.myForm.get('taxBracket')?.value == "22%") this.myForm.get("taxableIncome")?.setValue( '2500' );
-        else if (this.myForm.get('taxBracket')?.value == "24%") this.myForm.get("taxableIncome")?.setValue( '3500' );
-  
+        console.log( 'Processing status: Single ... taxableIncome upper limit: 單身是：22% 100525 24% 191950。' );
+        if(this.myForm.get('taxBracket')?.value == "22%") this.myForm.get("taxableIncome")?.setValue( '100525' );
+        else if (this.myForm.get('taxBracket')?.value == "24%") this.myForm.get("taxableIncome")?.setValue( '191950' );
       }
 
       console.log( 'taxableIncome: ', this.myForm.get('taxableIncome')?.value );
