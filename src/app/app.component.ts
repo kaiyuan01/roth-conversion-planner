@@ -322,7 +322,16 @@ export class AppComponent implements OnInit  {
          }
 
          if(row['rmdFactor'] > 0 && row['conversion'] >= row['rmdAmt'] ) {
-          if(row['conversion'] > row['rmdAmt'] ) row['conversion'] = row['rmdAmt'];
+          // if(row['conversion'] > row['rmdAmt'] ) row['conversion'] = row['rmdAmt'];
+          /*
+          if(row['conversion'] > row['rmdAmt'] ) {
+            row['conversion'] = row['rmdAmt'];
+            if( ) {
+              row['conversion'] = row['rmdAmt'];
+            }
+          }
+          */
+
           row['taxableIncome'] = row['conversion'] + row['income'] - row['ded'];
          } 
 
