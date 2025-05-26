@@ -6,6 +6,10 @@ See the discussions here:
 
  https://www.youtube.com/watch?v=EbZfRRSX8Wo&list=PLiskER8xug1eo49yiMsDm8NFY1PGFvMbk
  https://www.youtube.com/watch?v=KEJ1JhVZ0V4&list=PLiskER8xug1cvgAapbJMWldAlAY8ygnZL
+
+ Related CLEC Playlists:
+ https://www.youtube.com/watch?v=EbZfRRSX8Wo&list=PLiskER8xug1eo49yiMsDm8NFY1PGFvMbk 退休計劃
+ https://www.youtube.com/watch?v=81Iv_pqY9NE&list=PLiskER8xug1cvgAapbJMWldAlAY8ygnZL 美國稅務居民專題
  
  # Web site
  https://kaiyuan01.github.io/roth-conversion-planner/browser/ 
